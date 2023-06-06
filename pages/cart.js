@@ -7,7 +7,7 @@ import emptyCartImage from "@/public/assets/empty-cart.jpg";
 import { useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { makePaymentRequest } from "@/utils/api";
-
+import spinner from "../public/assets/spinner.svg"
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 
@@ -90,7 +90,7 @@ const Cart = () => {
 
                   {
                     loading && (
-                      <img src="/spinner.svg" />
+                      <Image width={30} height={30} src={spinner} alt="Loading..." />
                     )
                   }
                 </button>
