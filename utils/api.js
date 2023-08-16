@@ -29,3 +29,15 @@ export const makePaymentRequest = async (endpoint, payload) => {
 
     return data;
 }
+
+export const wishlistedIds = async (userId) => {
+    const res = await fetch(`${API_URL}$}`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+            'Content-Type': "application/json"
+
+        },
+        body: JSON.stringify(payload)
+    });
+}

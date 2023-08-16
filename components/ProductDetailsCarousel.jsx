@@ -10,7 +10,7 @@ import product5 from "@/public/assets/p5.png";
 import product6 from "@/public/assets/p6.png";
 import product7 from "@/public/assets/p7.png";
 
-const ProductDetailsCarousel = ({images}) => {
+const ProductDetailsCarousel = ({ images }) => {
   const productData = [
     {
       imageSrc: product1,
@@ -45,7 +45,7 @@ const ProductDetailsCarousel = ({images}) => {
         className="productCarousel"
       >
         {images.map((item, index) => (
-          <img src={item.attributes.url} alt={item.attributes.name} key={index} width={400} height={400} />
+          <img src={item.attributes.url} alt={item.attributes.name.replace("nextjspics.s3.ap-south-1.amazonaws.com", "img.haroth.com")} key={index} width={400} height={400} />
         ))}
       </Carousel>
     </div>

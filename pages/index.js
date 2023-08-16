@@ -44,6 +44,7 @@ export default function Home({ products }) {
 export async function getStaticProps() {
     const products = await fetchDataFromApi("/api/products?populate=*");
 
+    console.log("PRODUCTS --> ", products.data[0].attributes.thumbnail);
     return {
         props: { products },
     };

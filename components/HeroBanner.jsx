@@ -11,7 +11,7 @@ import slide3 from "../public/assets/slide-3.png"
 
 const HeroBanner = () => {
   return (
-    <div className='relative text-white text-[20px] w-full max-w-[1360px] mx-auto'>
+    <div className='relative text-white text-[20px] w-screen max-w-[1360px] mx-auto '>
        <Carousel
         autoPlay={true}
         interval={1000}

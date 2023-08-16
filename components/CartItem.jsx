@@ -22,7 +22,10 @@ const CartItem = ({ data }) => {
             {/* IMAGE START */}
             <div className="shrink-0 aspect-square w-[50px] md:w-[120px]">
                 <Image
-                    src={p.thumbnail.data.attributes.url}
+                    src={p.thumbnail.data.attributes.url.replace(
+                    "nextjspics.s3.ap-south-1.amazonaws.com",
+                    "img.haroth.com"
+                  )}
                     alt={p.name}
                     width={120}
                     height={120}
