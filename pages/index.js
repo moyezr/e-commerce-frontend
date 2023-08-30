@@ -1,8 +1,12 @@
-import HeroBanner from "@/components/HeroBanner";
-import ProductCard from "@/components/ProductCard";
-import Wrapper from "@/components/Wrapper";
-import { fetchDataFromApi } from "@/utils/api";
+import { ToastContainer } from "react-toastify";
+import HeroBanner from "../components/HeroBanner";
+import ProductCard from "../components/ProductCard";
+import Wrapper from "../components/Wrapper";
+import { fetchDataFromApi } from "../utils/api";
+import { useEffect } from "react";
+import { fetchFromLocalStorage } from "../utils/helper";
 export default function Home({ products }) {
+
     return (
         <main>
             <HeroBanner />
@@ -37,6 +41,7 @@ export default function Home({ products }) {
                 </div>
                 {/* products grid end */}
             </Wrapper>
+            <ToastContainer />
         </main>
     );
 }

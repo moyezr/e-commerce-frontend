@@ -41,3 +41,30 @@ export const wishlistedIds = async (userId) => {
         body: JSON.stringify(payload)
     });
 }
+
+
+export const getWishlistedProducts = async (wishlistedIds) => {
+    try {
+
+        if (wishlistedIds.length > 0) {
+            let url = `/api/products?`
+
+            for (let i = 0; i < wishlistedIds.length; i++) {
+                url += `filters[id][$in][${i}]=${wishlistedIds[i]}&`
+            }
+
+            console.log("FINAL URL ", url);
+            url += "populate=*";
+
+            const products = await fetchDataFromApi(url);
+            return products.data;
+
+        } else {
+            return [];
+        }
+
+    } catch (error) {
+        console.log("ERROR FETCHING WISHLISTED PRODUCTS", error)
+        return []
+    }
+}

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import Wrapper from "@/components/Wrapper";
-import ProductCard from "@/components/ProductCard";
-import { fetchDataFromApi } from "@/utils/api";
+import Wrapper from "../../components/Wrapper";
+import ProductCard from "../../components/ProductCard";
+import { fetchDataFromApi } from "../../utils/api";
 import useSWR from "swr";
 import { useRouter } from "next/router";
+import { ToastContainer } from "react-toastify";
+import { useAuth } from "@clerk/nextjs";
 const maxResult = 3;
 
 const Category = ({ category, products, slug }) => {
     const [pageIndex, setPageIndex] = useState(1);
     const { query } = useRouter();
+
 
     useEffect(() => {
         setPageIndex(1);
@@ -21,6 +24,7 @@ const Category = ({ category, products, slug }) => {
             fallbackData: products,
         }
     );
+
 
     return (
         <div className="w-full md:py-20 relative">
@@ -83,6 +87,7 @@ const Category = ({ category, products, slug }) => {
                     </div>
                 )}
             </Wrapper>
+            <ToastContainer />
         </div>
     );
 };

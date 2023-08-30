@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
-import Wrapper from "@/components/Wrapper";
-import ProductDetailsCarousel from "@/components/ProductDetailsCarousel";
-import RelatedProducts from "@/components/RelatedProducts";
-import { fetchDataFromApi } from "@/utils/api";
-import { getDiscountedPricePercentage } from "@/utils/helper";
+import Wrapper from "../../components/Wrapper";
+import ProductDetailsCarousel from "../../components/ProductDetailsCarousel";
+import RelatedProducts from "../../components/RelatedProducts";
+import { fetchDataFromApi } from "../../utils/api";
+import { getDiscountedPricePercentage } from "../../utils/helper";
 import ReactMarkdown from "react-markdown";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "@/store/cartSlice";
+import { addToCart } from "../../store/cartSlice";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import WishlistButton from "../../components/WishlistButton";
 
 const ProductDetails = ({ product, products }) => {
     const [selectedSize, setSelectedSize] = useState();
@@ -32,13 +33,14 @@ const ProductDetails = ({ product, products }) => {
     };
 
     return (
-        <div className="w-full md:py-20">
+        <div className="w-full md:py-12">
             <ToastContainer />
             <Wrapper>
                 <div className="flex flex-col lg:flex-row md:px-10 gap-[50px] lg:gap-[100px]">
                     {/* left column start */}
-                    <div className="w-full md:w-auto flex-[1.5] max-w-[500px] lg:max-w-full mx-auto lg:mx-0">
+                    <div className="w-full relative md:w-auto flex-[1.5] max-w-[500px] lg:max-w-full mx-auto lg:mx-0">
                         <ProductDetailsCarousel images={p.image.data} />
+                        <WishlistButton productId={product.id} isBig={true} />
                     </div>
                     {/* left column end */}
 
@@ -160,14 +162,6 @@ const ProductDetails = ({ product, products }) => {
                             Add to Cart
                         </button>
                         {/* ADD TO CART BUTTON END */}
-
-                        {/* WHISHLIST BUTTON START */}
-                        <button className="w-full py-4 rounded-full border border-black text-lg font-medium transition-transform active:scale-95 flex items-center justify-center gap-2 hover:opacity-75 mb-10">
-                            Whishlist
-                            <IoMdHeartEmpty size={20} />
-                        </button>
-                        {/* WHISHLIST BUTTON END */}
-
                         <div>
                             <div className="text-lg font-bold mb-5">
                                 Product Details

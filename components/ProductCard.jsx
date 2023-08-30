@@ -1,21 +1,27 @@
-import { getDiscountedPricePercentage } from "@/utils/helper";
+import { getDiscountedPricePercentage } from "../utils/helper";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import WishlistButton from "./WishlistButton";
 
 
 const ProductCard = ({ data: { attributes: p, id } }) => {
     return (
         <Link
             href={`/product/${p.slug}`}
-            className="transform overflow-hidden bg-white duration-200 hover:scale-105 cursor-pointer"
+            className="overflow-hidden bg-white cursor-pointer transition hover:shadow-md rounded-b-lg z-[10]"
         >
+        <div className="overflow-hidden relative z-[10]">
+
             <Image
+            className="transform duration-200 hover:scale-105"
                 width={500}
                 height={500}
                 src={p.thumbnail.data.attributes.url}
                 alt={p.name}
             />
+            <WishlistButton productId={id} />
+        </div>
             <div className="p-4 text-black/[0.9]">
                 <h2 className="text-lg font-medium">{p.name}</h2>
                 <div className="flex items-center text-black/[0.5]">

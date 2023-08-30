@@ -1,18 +1,23 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import Wrapper from "./Wrapper";
 
 import Link from "next/link";
 import Menu from "./Menu";
 import MenuMobile from "./MenuMobile";
+import { AiOutlineUser } from "react-icons/ai"
 
-import { IoMdHeartEmpty } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
 import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
-import { fetchDataFromApi } from "@/utils/api";
+import { fetchDataFromApi } from "../utils/api";
 import { useSelector } from "react-redux";
-import Logo from '@/public/assets/logo.svg';
+import Logo from '../public/assets/logo.svg';
 import Image from "next/image";
+import { SignedIn, UserButton, SignedOut } from "@clerk/nextjs";
+import WishlistMenu from "./WishlistMenu";
+import CartIcon from "./CartIcon";
 
 const Header = () => {
     const [mobileMenu, setMobileMenu] = useState(false);
@@ -20,8 +25,8 @@ const Header = () => {
     const [show, setShow] = useState("translate-y-0");
     const [lastScrollY, setLastScrollY] = useState(0);
     const [categories, setCategories] = useState(null);
+    const [wishlistedIds, setWishlistedIds] = useState([]);
 
-    const { cartItems } = useSelector((state) => state.cart);
 
     const controlNavbar = () => {
         if (window.scrollY > 200) {
@@ -49,7 +54,7 @@ const Header = () => {
 
     const fetchCategories = async () => {
         try {
-            
+
             const { data } = await fetchDataFromApi("/api/categories?populate=*");
             setCategories(data);
         } catch (error) {
@@ -83,26 +88,26 @@ const Header = () => {
 
                 <div className="flex items-center gap-2 text-black">
                     {/* Icon start */}
-                    <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
-                        <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
-                        <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-                            51
-                        </div>
-                    </div>
+                    
                     {/* Icon end */}
 
                     {/* Icon start */}
-                    <Link href="/cart">
+                    <CartIcon />
+                    {/* Icon end */}
+                            <WishlistMenu />
+                    {/* Icon start */}
+                    <SignedIn>
+                        <UserButton afterSignOutUrl="/" />
+                    </SignedIn>
+                    <SignedOut>
+                    <Link href="/sign-in">
                         <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
-                            <BsCart className="text-[15px] md:text-[20px]" />
-                            {cartItems.length > 0 && (
-                                <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-                                    {cartItems.length}
-                                </div>
-                            )}
+                            <AiOutlineUser className="text-[15px] md:text-[20px]" />
                         </div>
                     </Link>
+                    </SignedOut>
                     {/* Icon end */}
+
 
                     {/* Mobile icon start */}
                     <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">
@@ -119,6 +124,8 @@ const Header = () => {
                         )}
                     </div>
                     {/* Mobile icon end */}
+
+
                 </div>
             </Wrapper>
         </header>

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React from "react";
 import Link from "next/link";
 import { BsChevronDown } from "react-icons/bs";
@@ -23,7 +24,13 @@ const MenuMobile = ({
     categories,
 }) => {
     return (
-        <ul className="flex flex-col md:hidden font-bold absolute top-[50px] left-0 w-full h-[calc(100vh-50px)] bg-white border-t text-black">
+        <motion.ul initial={{
+            y: "-1000px"
+        }}
+            animate={{
+                y:0
+            }}
+         className="flex flex-col md:hidden font-bold absolute top-[50px] left-0 w-full h-[calc(100vh-50px)] bg-white border-t text-black">
             {data.map((item) => {
                 return (
                     <React.Fragment key={item.id}>
@@ -38,7 +45,14 @@ const MenuMobile = ({
                                 </div>
 
                                 {showCatMenu && (
-                                    <ul className="bg-black/[0.05] -mx-5 mt-4 -mb-4">
+                                    <motion.ul initial={{
+                                    opacity:0
+                                    }}
+                                    
+                                    animate={{
+                                        opacity: "100%"
+                                    }}
+                                     className="bg-black/[0.05] -mx-5 mt-4 -mb-4">
                                         {categories?.map(
                                             ({ attributes: c, id }) => {
                                                 return (
@@ -64,7 +78,7 @@ const MenuMobile = ({
                                                 );
                                             }
                                         )}
-                                    </ul>
+                                    </motion.ul>
                                 )}
                             </li>
                         ) : (
@@ -80,7 +94,7 @@ const MenuMobile = ({
                     </React.Fragment>
                 );
             })}
-        </ul>
+        </motion.ul>
     );
 };
 

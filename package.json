@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.23.3",
     "@next/font": "13.1.6",
     "@reduxjs/toolkit": "^1.9.3",
     "@stripe/react-stripe-js": "^1.16.5",
@@ -16,6 +17,7 @@
     "emailjs-com": "^3.2.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
+    "framer-motion": "^10.16.1",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -25,6 +27,7 @@
     "react-multi-carousel": "^2.8.2",
     "react-redux": "^8.0.5",
     "react-responsive-carousel": "^3.2.23",
+    "react-spinners": "^0.13.8",
     "react-toastify": "^9.1.1",
     "swr": "^2.1.0"
   },

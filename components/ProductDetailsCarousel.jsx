@@ -2,13 +2,13 @@ import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
-import product1 from "@/public/assets/p1.png";
-import product2 from "@/public/assets/p2.png";
-import product3 from "@/public/assets/p3.png";
-import product4 from "@/public/assets/p4.png";
-import product5 from "@/public/assets/p5.png";
-import product6 from "@/public/assets/p6.png";
-import product7 from "@/public/assets/p7.png";
+import product1 from "../public/assets/p1.png";
+import product2 from "../public/assets/p2.png";
+import product3 from "../public/assets/p3.png";
+import product4 from "../public/assets/p4.png";
+import product5 from "../public/assets/p5.png";
+import product6 from "../public/assets/p6.png";
+import product7 from "../public/assets/p7.png";
 
 const ProductDetailsCarousel = ({ images }) => {
   const productData = [

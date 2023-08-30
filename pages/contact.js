@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { RiGalleryFill } from 'react-icons/ri'
 import { send } from "emailjs-com";
 import {ToastContainer, toast} from "react-toastify"
-import Wrapper from '@/components/Wrapper';
+import Wrapper from '../components/Wrapper';
 import "react-toastify/dist/ReactToastify.css";
 const ContactFormInput = ({ register, id, label, required, type, errors }) => {
     return (

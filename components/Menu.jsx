@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { BsChevronDown } from "react-icons/bs";
+import {motion} from "framer-motion";
 
 const data = [
     { id: 1, name: "Home", url: "/" },
@@ -32,7 +33,14 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                                 <BsChevronDown size={14} />
 
                                 {showCatMenu && (
-                                    <ul className="bg-white absolute top-6 left-0 min-w-[250px] px-1 py-1 text-black shadow-lg">
+                                    <motion.ul 
+                                        initial={{
+                                            height: 0
+                                        }}
+                                        animate={{
+                                            height: "200px"
+                                        }}
+                                     className="bg-white absolute top-6 left-0 min-w-[250px] px-1 py-1 text-black shadow-lg">
                                         {categories?.map(
                                             ({ attributes: c, id }) => {
                                                 return (
@@ -55,7 +63,7 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
                                                 );
                                             }
                                         )}
-                                    </ul>
+                                    </motion.ul>
                                 )}
                             </li>
                         ) : (

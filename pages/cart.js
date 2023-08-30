@@ -1,28 +1,54 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Wrapper from "@/components/Wrapper";
-import CartItem from "@/components/CartItem";
-import emptyCartImage from "@/public/assets/empty-cart.jpg";
-import { useSelector } from "react-redux";
+import Wrapper from "../components/Wrapper";
+import CartItem from "../components/CartItem";
+import emptyCartImage from "../public/assets/empty-cart.jpg";
+import { useDispatch, useSelector } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
-import { makePaymentRequest } from "@/utils/api";
+import { makePaymentRequest } from "../utils/api";
 import spinner from "../public/assets/spinner.svg"
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/router";
+import { clearCart } from "../store/cartSlice";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 
 const Cart = () => {
   const [loading, setLoading] = useState(false)
+  const [isMounted, setIsMounted] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
-
+  const dispatch = useDispatch();
+  const router = useRouter();
+  
+  const {userId} = useAuth();
 
   const subTotal = useMemo(() => {
     return cartItems.reduce((total, val) => total + val.attributes.price, 0);
   }, [cartItems])
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if(!isMounted) {
+    return null;
+  }
+
+
+
+
+
+
   const handlePayment = async () => {
     try {
         setLoading(true);
+
+        if(!userId) {
+          router.push('/sign-in');
+          setLoading(false);
+          return;
+        }
         const stripe = await stripePromise;
         const res = await makePaymentRequest("/api/orders", {
           products: cartItems
@@ -30,7 +56,9 @@ const Cart = () => {
 
         await stripe.redirectToCheckout({
           sessionId: res.stripeSession.id
-        })
+        });
+
+        dispatch(clearCart());
     } catch (error) {
       console.log(error)
     }
@@ -46,7 +74,7 @@ const Cart = () => {
           <>
             {/* HEADING AND PARAGRAPH START */}
             <div className="text-center max-w-[800px] mx-auto mt-8 md:mt-0">
-              <div className="text-[28px] md:text-[34px] mb-5 font-semibold leading-tight">
+              <div className="text-[28px] md:text-[34px] py-5 font-semibold leading-tight">
                 Shopping Cart
               </div>
             </div>
